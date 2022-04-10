@@ -71,7 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // 配置不进行权限登录就可以访问的连接
-                .antMatchers(JWTConfig.antMatchers.split(",")).permitAll()
+                .antMatchers(JWTConfig.antMatchers.split(",")).permitAll().antMatchers("/swagger-ui.html","/statics/**","/webjars/**").anonymous()
                 // 配置其他路径都需要登录才可以访问
                 .anyRequest().authenticated()
                 .and()
@@ -109,21 +109,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilter(new JWTAuthenticationTokenFilter(authenticationManager()));
     }
 
-    /**
-     * 过滤静态文件
-     * @param web
-     * @throws Exception
-     */
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(HttpMethod.GET,
-                "/v2/api-docs",
-                "/swagger-resources",
-                "/swagger-resources/**",
-                "/configuration/ui",
-                "/configuration/security",
-                "/swagger-ui.html/**",
-                "/webjars/**");
-
+        web.ignoring().antMatchers("/swagger/**")
+                .antMatchers("/swagger-ui.html")
+                .antMatchers("/webjars/**")
+                .antMatchers("/v2/**")
+                .antMatchers("/v2/api-docs-ext/**")
+                .antMatchers("/swagger-resources/**")
+                .antMatchers("/doc.html");
     }
 }

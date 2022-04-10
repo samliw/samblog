@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public ResponseResult exceptionHandler(HttpServletRequest req,Exception e){
         LOGGER.error("未知异常！原因是：{}",e.getMessage());
-        return new ResponseResult(ResultCode.ERROR,null);
+        return new ResponseResult(ResultCode.ERROR,e.getMessage());
     }
 
     /**
