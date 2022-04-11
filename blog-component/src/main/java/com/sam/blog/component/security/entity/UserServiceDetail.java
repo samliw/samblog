@@ -12,7 +12,7 @@ public class UserServiceDetail implements Serializable, UserDetails {
     /**
      * 用户ID
      */
-    private Long userId;
+    private Integer userId;
     /**
      * 用户名
      */
@@ -85,16 +85,16 @@ public class UserServiceDetail implements Serializable, UserDetails {
     public UserServiceDetail() {
     }
 
-    public UserServiceDetail(Long userId, String username) {
+    public UserServiceDetail(Integer userId, String username) {
         this.userId = userId;
         this.username = username;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

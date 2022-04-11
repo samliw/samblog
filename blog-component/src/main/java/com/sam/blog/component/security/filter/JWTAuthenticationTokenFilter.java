@@ -2,6 +2,7 @@ package com.sam.blog.component.security.filter;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sam.blog.common.config.JWTConfig;
+import com.sam.blog.component.jwt.JWTUtil;
 import com.sam.blog.component.security.entity.UserServiceDetail;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -39,13 +40,8 @@ public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter {
         String headerToken = request.getHeader(JWTConfig.tokenHeader);
         if (null!=headerToken && headerToken.startsWith(JWTConfig.tokenPrefix)) {
             try {
-                // 截取JWT前缀
-                String token = headerToken.replace(JWTConfig.tokenPrefix, "");
-                // 解析JWT
-                Claims claims = Jwts.parser()
-                        .setSigningKey(JWTConfig.secret)
-                        .parseClaimsJws(token)
-                        .getBody();
+
+                Claims claims = JWTUtil.parseToken(headerToken);
                 // 获取用户名
                 String username = claims.getSubject();
                 String userId=claims.getId();
@@ -64,7 +60,7 @@ public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter {
                     //组装参数
                     UserServiceDetail selfUserEntity = new UserServiceDetail();
                     selfUserEntity.setUsername(claims.getSubject());
-                    selfUserEntity.setUserId(Long.parseLong(claims.getId()));
+                    selfUserEntity.setUserId(Integer.valueOf(claims.getId()));
                     selfUserEntity.setAuthorities(authorities);
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(selfUserEntity, userId, authorities);
                     SecurityContextHolder.getContext().setAuthentication(authentication);

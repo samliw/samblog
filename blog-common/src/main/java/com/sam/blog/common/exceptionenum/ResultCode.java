@@ -10,7 +10,7 @@ public enum ResultCode {
     ERROR(Boolean.FALSE,500,"系统错误"),
     FAIL(Boolean.FALSE,10000,"操作失败"),
     LOGIN_ERROR(Boolean.FALSE,10001,"登录失败"),
-    NOT_LOGIN(Boolean.FALSE,10002,"未登录"),
+    NOT_LOGIN(Boolean.FALSE,10002,"未登录或账号密码失效！"),
     NOT_USER_NAME_EXIST(Boolean.FALSE,10003,"用户名不存在"),
     USER_LOCK(Boolean.FALSE,10004,"用户账号被锁"),
     PASSWORD_ERROR(Boolean.FALSE,10005,"密码不正确"),
