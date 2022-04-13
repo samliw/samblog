@@ -3,8 +3,10 @@ package com.sam.blog.component.security.handler;
 import com.sam.blog.common.config.JWTConfig;
 import com.sam.blog.common.exception.ResponseResult;
 import com.sam.blog.common.exceptionenum.ResultCode;
+import com.sam.blog.component.dto.SUserDto;
 import com.sam.blog.component.security.entity.UserServiceDetail;
 import com.sam.blog.component.jwt.JWTUtil;
+import com.sam.blog.component.thread.UserThreadLocal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -33,8 +35,10 @@ public class UserLoginSuccessHandler extends SavedRequestAwareAuthenticationSucc
      */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-        LOGGER.error("返回结果");
+        LOGGER.info("返回结果");
         UserServiceDetail userServiceDetail = (UserServiceDetail) authentication.getPrincipal();
+        // 本地线程变量
+        UserThreadLocal.setUser(new SUserDto(userServiceDetail.getUserId(),userServiceDetail.getUsername()));
         String jwtToken = JWTUtil.createJwtToken(userServiceDetail);
         jwtToken = JWTConfig.tokenPrefix + jwtToken;
         ResponseResult.responseJson(httpServletResponse,new ResponseResult(ResultCode.SUCCESS,jwtToken));

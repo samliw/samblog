@@ -1,19 +1,10 @@
-package com.sam.blog.component.entity;
+package com.sam.blog.component.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
-@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
-@Entity
-@Table(name="s_user")
-public class SUser implements Serializable,Cloneable{
-    /** 用户id */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class SUserDto {
     private Integer userId ;
     /** 用户昵称 */
     private String userName ;
@@ -182,5 +173,10 @@ public class SUser implements Serializable,Cloneable{
 
     public void setUpdatedTime(Date updatedTime) {
         this.updatedTime = updatedTime;
+    }
+
+    public SUserDto(Integer userId, String loginName) {
+        this.userId = userId;
+        this.loginName = loginName;
     }
 }

@@ -37,7 +37,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = BusinessException.class)
     public ResponseResult bizExceptionHandler(HttpServletRequest req, BusinessException e){
         LOGGER.error("自定义处理异常！原因是：{}",e.getMessage());
-        return new ResponseResult(Boolean.FALSE,e.code,null);
+        return new ResponseResult(Boolean.FALSE,e.code,e.getMessage());
     }
 
     /**
@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value =NullPointerException.class)
     public ResponseResult exceptionHandler(HttpServletRequest req, NullPointerException e){
         LOGGER.error("发生空指针异常！原因是:",e);
-        return new ResponseResult(ResultCode.NULL_EXCEPTION,null);
+        return new ResponseResult(ResultCode.NULL_EXCEPTION,e.getMessage());
     }
     /**
      * 处理404异常
@@ -58,7 +58,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseResult handleNoHandlerFoundException(NoHandlerFoundException e) {
-        return new ResponseResult(ResultCode.NOT_FOUND,null);
+        return new ResponseResult(ResultCode.NOT_FOUND,e.getMessage());
     }
 
 

@@ -3,10 +3,7 @@ package com.sam.blog.component.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,7 +14,7 @@ import java.util.Date;
 public class SMenu implements Serializable,Cloneable{
     /** 菜单ID */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer menuId ;
     /** 菜单名称 */
     private String menuName ;

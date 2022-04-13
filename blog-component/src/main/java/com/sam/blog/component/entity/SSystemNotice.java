@@ -3,10 +3,7 @@ package com.sam.blog.component.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,8 +14,8 @@ import java.util.Date;
 public class SSystemNotice implements Serializable,Cloneable{
     /** 通知ID */
     @Id
-    @GeneratedValue
-    private Integer notoceId ;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer noticeId ;
     /** 通知名称 */
     private String noticeName ;
     /** 通知内容 */

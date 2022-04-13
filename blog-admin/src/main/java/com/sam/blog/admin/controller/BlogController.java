@@ -2,21 +2,23 @@ package com.sam.blog.admin.controller;
 
 
 
-import com.sam.blog.common.exception.BusinessException;
 import com.sam.blog.common.exception.ResponseResult;
 import com.sam.blog.common.exceptionenum.ResultCode;
-import com.sam.blog.component.entity.SArticle;
-import com.sam.blog.component.entity.SUserRole;
+import com.sam.blog.common.util.SystemContextUtils;
+import com.sam.blog.component.dto.SArticleDto;
 import com.sam.blog.component.service.SArticleService;
+import com.sam.blog.component.util.CurrentUserNameUtil;
+import com.sam.blog.component.vo.SArticleVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.hibernate.criterion.NullExpression;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
-@Api(value = "BlogController", description = "登陆管理")
+@Api(value = "BlogController", description = "博客文章管理")
 @RequestMapping(value = "/blog")
 @RestController
 public class BlogController {
@@ -24,46 +26,51 @@ public class BlogController {
     @Resource
     private SArticleService sArticleService;
 
-
-    @ApiOperation(value = "获取登录时间接口", notes = "获取登录时间接口")
-    @GetMapping(value = "/demo")
-    public SArticle getDemo(){
-        return sArticleService.getFindOne();
-    }
     @GetMapping(value = "/role")
+    @ApiOperation(value = "获取登录时间接口", notes = "获取登录时间接口")
     public ResponseResult getUserDemo(){
-        int i = 1/0;
-        return new ResponseResult(ResultCode.SUCCESS,sArticleService.getUserRoleFindOne());
+        return new ResponseResult(ResultCode.SUCCESS,sArticleService.getFindOne());
     }
 
-    @ApiOperation(value = "开始", notes = "开始")
-    @PostMapping("/hello")
-    public boolean insert(Integer i) {
-        System.out.println("开始...");
-        //如果姓名为空就手动抛出一个自定义的异常！
-        if(i==null){
-            throw  new BusinessException(Boolean.FALSE,-1 ,"i不能为空！");
+    @ApiOperation(value = "插入文章")
+    @PostMapping(value = "/insert")
+    public ResponseResult insertArticle(@RequestBody SArticleVo vo, HttpServletRequest request){
+        SArticleDto sArticleDto = new SArticleDto();
+        SystemContextUtils.copyBean(vo,  sArticleDto);
+        String currentUserName = CurrentUserNameUtil.getCurrentUserName(request);
+        if(StringUtils.isEmpty(currentUserName)){
+            return new ResponseResult(ResultCode.FAIL);
         }
-        return true;
+        sArticleDto.setCreateUser(currentUserName);
+        sArticleDto.setCreateTime(new Date());
+        sArticleService.insertArticle(sArticleDto);
+        return new ResponseResult(ResultCode.SUCCESS);
+    }
+    @ApiOperation(value = "更新文章")
+    @PutMapping(value = "/update")
+    public ResponseResult updateArticle(@RequestBody SArticleVo vo, HttpServletRequest request){
+        SArticleDto sArticleDto = new SArticleDto();
+        SystemContextUtils.copyBean(vo,  sArticleDto);
+        String currentUserName = CurrentUserNameUtil.getCurrentUserName(request);
+        if(StringUtils.isEmpty(currentUserName)){
+            return new ResponseResult(ResultCode.FAIL);
+        }
+        sArticleDto.setUpdateUser(currentUserName);
+        sArticleDto.setUpdateTime(new Date());
+        sArticleService.updateArticle(sArticleDto);
+        return new ResponseResult(ResultCode.SUCCESS);
+    }
+    @ApiOperation(value = "获取文章信息")
+    @GetMapping(value = "/getById")
+    public ResponseResult getArticleById(@RequestParam("articleId") Integer articleId, HttpServletRequest request){
+        String currentUserName = CurrentUserNameUtil.getCurrentUserName(request);
+        if(StringUtils.isEmpty(currentUserName)){
+            return new ResponseResult(ResultCode.FAIL);
+        }
+
+        SArticleDto sArticleDto =sArticleService.getArticleById(articleId);
+        return new ResponseResult(ResultCode.SUCCESS,sArticleDto);
     }
 
-    @ApiOperation(value = "开始更新", notes = "开始更新")
-    @PutMapping("/hello")
-    public boolean update() {
-        System.out.println("开始更新...");
-        //这里故意造成一个空指针的异常，并且不进行处理
-        String str=null;
-        str.equals("111");
-        return true;
-    }
-
-    @ApiOperation(value = "开始删除", notes = "开始删除")
-    @DeleteMapping("/hello")
-    public boolean delete()  {
-        System.out.println("开始删除...");
-        //这里故意造成一个异常，并且不进行处理
-        Integer.parseInt("abc123");
-        return true;
-    }
 
 }

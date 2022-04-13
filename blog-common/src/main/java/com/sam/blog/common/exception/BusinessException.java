@@ -1,5 +1,6 @@
 package com.sam.blog.common.exception;
 
+import com.sam.blog.common.exceptionenum.ResultCode;
 import lombok.Data;
 
 /**
@@ -24,6 +25,12 @@ public class BusinessException extends RuntimeException {
     public Integer code;
 
     public Exception exception;
+
+    public BusinessException(ResultCode resultCode) {
+        this.success = resultCode.success;
+        this.message = resultCode.message;
+        this.code = resultCode.code;
+    }
 
     public BusinessException(Boolean success, Integer code, String message) {
         this.success = success;

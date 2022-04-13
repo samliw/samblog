@@ -1,19 +1,18 @@
 package com.sam.blog.component.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
 @Data
 @Entity
 @Table(name="s_article")
-public class SArticle {
+public class SArticle implements Serializable,Cloneable{
     /** 文章ID */
     @Id
     @GeneratedValue
@@ -39,6 +38,7 @@ public class SArticle {
     /** 创建人 */
     private String createUser ;
     /** 创建时间 */
+    @Column(name = "create_time", nullable = false)
     private Date createTime ;
     /** 更新时间 */
     private Date updateTime ;

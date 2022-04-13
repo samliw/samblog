@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(value = "登录接口")
+@Api(value = "LoginController", description = "登录管理")
 @RequestMapping(value = "/login")
 @RestController
 public class LoginController {
@@ -19,4 +19,5 @@ public class LoginController {
     public ResponseResult getPasswordPublicKey(){
         return new ResponseResult(ResultCode.SUCCESS, AccountRSAUtils.createRSAKeys().get(AccountRSAUtils.PUBLIC_KEY_NAME).toString());
     }
+
 }
