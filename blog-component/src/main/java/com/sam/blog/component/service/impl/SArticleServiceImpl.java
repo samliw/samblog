@@ -59,6 +59,7 @@ public class SArticleServiceImpl implements SArticleService {
     public SArticleDto getArticleById(Integer articleId) {
         SArticleDto sArticleDto = new SArticleDto();
         SArticle sArticle = sArticleMapper.getOne(articleId);
+        System.out.println(sArticle.toString());
         SystemContextUtils.copyBean(sArticle,  sArticleDto);
         return sArticleDto;
     }

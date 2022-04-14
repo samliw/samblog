@@ -5,7 +5,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
 @Data
@@ -15,20 +17,31 @@ public class STag implements Serializable,Cloneable{
     /** 标签ID */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "TAG_ID")
     private Integer tagId ;
     /** 标签名称 */
+    @Column(name = "TAG_NAME")
     private String tagName ;
     /** 标签分类-前端显示不用;1 正常 2 推荐 3 一般推荐 4 非常推荐 */
+    @Column(name = "TAG_TYPE")
     private Integer tagType ;
     /** 删除标识;删除标识  1 删除  0 未删除 */
+    @Column(name = "DELETE_TAG")
     private Integer deleteTag ;
     /** 创建人 */
+    @Column(name = "created_user")
     private String createdUser ;
     /** 创建时间 */
+    @Column(name = "created_time")
     private Date createdTime ;
     /** 更新人 */
+    @Column(name = "updated_user")
     private String updatedUser ;
     /** 更新时间 */
+    @Column(name = "updated_time")
     private Date updatedTime ;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TAG_ID", updatable = false,insertable = false)
+    private List<SArticleTag> sArticleTag  = new ArrayList<>();;
 
 }

@@ -5,7 +5,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
 @Entity
@@ -14,39 +16,60 @@ public class SUser implements Serializable,Cloneable{
     /** 用户id */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "USER_ID")
     private Integer userId ;
     /** 用户昵称 */
+    @Column(name = "USER_NAME")
     private String userName ;
     /** 用户类型 */
+    @Column(name = "USER_TYPE")
     private String userType ;
     /** 用户账号 */
+    @Column(name = "LOGIN_NAME")
     private String loginName ;
     /** 用户邮箱 */
+    @Column(name = "USER_EMAIL")
     private String userEmail ;
     /** 用户手机号 */
+    @Column(name = "USER_PHONE")
     private String userPhone ;
     /** 用户性别;用户性别（0男 1女 2未知 */
+    @Column(name = "USER_SEX")
     private Integer userSex ;
     /** 头像路径 */
+    @Column(name = "USER_PICTURE")
     private String userPicture ;
     /** 密码 */
+    @Column(name = "USER_PASSWORD")
     private String userPassword ;
     /** 用户账号状态;帐号状态（0正常 1停用） */
+    @Column(name = "USER_STATUS")
     private Integer userStatus ;
     /** 删除标识;删除标志（0代表存在 1代表删除） */
+    @Column(name = "DELETE_TAG")
     private Integer deleteTag ;
     /** 最后登录Ip */
+    @Column(name = "LAST_LOGIN_ID")
     private String lastLoginId ;
     /** 最后登录时间 */
+    @Column(name = "LAST_TIME")
     private Date lastTime ;
     /** 创建人 */
+    @Column(name = "created_user")
     private String createdUser ;
     /** 创建时间 */
+    @Column(name = "created_time")
     private Date createdTime ;
     /** 更新人 */
+    @Column(name = "updated_user")
     private String updatedUser ;
     /** 更新时间 */
-    private Date updatedTime ;
+    @Column(name = "updated_time")
+    private Date updatedTime ;;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID",referencedColumnName = "USER_ID",insertable = false,updatable = false)
+    private List<SUserRole> sUserRoleList = new ArrayList<>();
 
     public Integer getUserId() {
         return userId;
@@ -182,5 +205,13 @@ public class SUser implements Serializable,Cloneable{
 
     public void setUpdatedTime(Date updatedTime) {
         this.updatedTime = updatedTime;
+    }
+
+    public List<SUserRole> getsUserRoleList() {
+        return sUserRoleList;
+    }
+
+    public void setsUserRoleList(List<SUserRole> sUserRoleList) {
+        this.sUserRoleList = sUserRoleList;
     }
 }

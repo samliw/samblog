@@ -2,6 +2,7 @@ package com.sam.blog.component.dto;
 
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.sam.blog.component.entity.SArticleType;
 import lombok.Data;
 
 import javax.persistence.Temporal;
@@ -22,10 +23,12 @@ public class SArticleDto implements Serializable {
     private String articleHeadImg ;
     private Integer click ;
     private Integer deleteTag ;
+    private SArticleType sArticleType;
     private String createUser ;
     private Date createTime ;
     private Date updateTime ;
     private String updateUser ;
+
     public String getArticleName() {
         return articleName;
     }
@@ -139,5 +142,13 @@ public class SArticleDto implements Serializable {
 
     public void setDeleteTag(Integer deleteTag) {
         this.deleteTag = deleteTag;
+    }
+
+    public SArticleType getsArticleType() {
+        return sArticleType;
+    }
+
+    public void setsArticleType(SArticleType sArticleType) {
+        this.sArticleType = sArticleType;
     }
 }
