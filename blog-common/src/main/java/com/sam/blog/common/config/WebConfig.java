@@ -1,6 +1,7 @@
 package com.sam.blog.common.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
  *   运行访问swagger 不需要登录验证
  */
 @Configuration
+@EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -21,6 +23,8 @@ public class WebConfig implements WebMvcConfigurer {
     }
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LocaleChangeInterceptor());
+        registry.addInterceptor(new LocaleChangeInterceptor()).
+                addPathPatterns("/**")
+                .excludePathPatterns("/index/**","/login/**", "/swagger-resources/**", "/webjars/**", "/swagger-ui.html/**","");;
     }
 }

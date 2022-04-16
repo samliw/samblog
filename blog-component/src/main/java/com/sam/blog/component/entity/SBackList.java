@@ -1,6 +1,8 @@
 package com.sam.blog.component.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.swagger.models.auth.In;
 import lombok.Data;
 import org.hibernate.annotations.NotFound;
@@ -13,26 +15,27 @@ import java.util.Date;
 import java.util.List;
 
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "backId")
 @Data
 @Entity
 @Table(name="s_back_list")
 public class SBackList implements Serializable,Cloneable{
     /** ID */
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @Column(name = "BACK_ID")
     private Integer backId ;
     /** 文章ID */
     @Column(name = "ARTICLE_ID")
     private Integer articleId ;
     /** ip 地址 */
-    @Column(name = "IP_ADDRESS")
+    @Column(name = "IP_ADDRESS" , length = 50)
     private String ipAddress ;
     /** 访问地址 */
-    @Column(name = "LOCATION")
+    @Column(name = "LOCATION" , length = 300)
     private String location ;
     /** 浏览器类型 */
-    @Column(name = "BROWSER_TYPE")
+    @Column(name = "BROWSER_TYPE" , length = 50)
     private String browserType ;
     /** 访问状态;访问状态,1表示正常，0表示不正常 */
     @Column(name = "STATUS")
@@ -41,10 +44,10 @@ public class SBackList implements Serializable,Cloneable{
     @Column(name = "CREATED_TIME")
     private Date createdTime ;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ARTICLE_ID",referencedColumnName = "ARTICLE_ID", insertable = false, updatable = false)
     @NotFound(action = NotFoundAction.IGNORE)
-    private List<SArticle> sArticleList = new ArrayList<>();;
+    private SArticle sArticle;
 
 
 }

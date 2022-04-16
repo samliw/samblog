@@ -2,23 +2,34 @@ package com.sam.blog.admin;
 
 import com.sam.blog.common.config.JWTConfig;
 import com.sam.blog.common.util.AccountRSAUtils;
+import com.sam.blog.component.entity.SArticle;
+import com.sam.blog.component.entity.SUserRole;
+import com.sam.blog.component.mapper.SArticleMapper;
 import com.sam.blog.component.security.entity.UserServiceDetail;
 import com.sam.blog.component.jwt.JWTUtil;
+import com.sam.blog.component.service.SArticleService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ApplicationTest {
 
+    @Resource
+    private SArticleService sArticleService;
+
     @Test
     public void testDemo(){
-        System.out.println(JWTConfig.secret);
-        System.out.println(JWTUtil.createJwtToken(new UserServiceDetail(1,"shda")));
+        Page<SArticle> userRoleFindOne = sArticleService.getUserRoleFindOne();
+        System.out.println( userRoleFindOne);
+        /*System.out.println(JWTConfig.secret);
+        System.out.println(JWTUtil.createJwtToken(new UserServiceDetail(1,"shda")));*/
     }
     @Test
     public void testPasswordDecrypt() {

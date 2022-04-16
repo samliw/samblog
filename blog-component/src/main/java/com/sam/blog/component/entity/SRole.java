@@ -15,15 +15,15 @@ import java.util.List;
 @Table(name="s_role")
 public class SRole implements Serializable,Cloneable{
     /** 角色ID */
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @Column(name = "ROLE_ID")
     private Integer roleId ;
     /** 角色名称 */
-    @Column(name = "ROLE_NAME")
+    @Column(name = "ROLE_NAME" , length = 150)
     private String roleName ;
     /** 角色权限字符串 */
-    @Column(name = "ROLE_KEY")
+    @Column(name = "ROLE_KEY" , length = 200)
     private String roleKey ;
     /** 显示顺序 */
     @Column(name = "ROLE_SORT")
@@ -38,21 +38,15 @@ public class SRole implements Serializable,Cloneable{
     @Column(name = "DELETE_TAG")
     private Integer deleteTag ;
     /** 创建人 */
-    @Column(name = "created_user")
+    @Column(name = "created_user" , length = 50)
     private String createdUser ;
     /** 创建时间 */
     @Column(name = "created_time")
     private Date createdTime ;
     /** 更新人 */
-    @Column(name = "updated_user")
+    @Column(name = "updated_user" , length = 50)
     private String updatedUser ;
     /** 更新时间 */
     @Column(name = "updated_time")
     private Date updatedTime ;
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ROLE_ID",referencedColumnName = "ROLE_ID",updatable = false,insertable = false)
-    private List<SRoleMenu> sRoleMenuList = new ArrayList<>();
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ROLE_ID",referencedColumnName = "ROLE_ID",updatable = false,insertable = false)
-    private List<SUserRole> sUserRoleList = new ArrayList<>();
 }

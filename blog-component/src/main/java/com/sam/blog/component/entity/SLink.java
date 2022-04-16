@@ -13,24 +13,24 @@ import java.util.Date;
 @Table(name="s_link")
 public class SLink implements Serializable,Cloneable{
     /** id */
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @Column(name = "LINK_ID")
     private Integer linkId ;
     /** 链接名称 */
-    @Column(name = "LINK_NAME")
+    @Column(name = "LINK_NAME" , length = 150)
     private String linkName ;
     /** 友链描述 */
-    @Column(name = "LINK_DESCRIPTION")
+    @Column(name = "LINK_DESCRIPTION" , length = 600)
     private String linkDescription ;
     /** 友链图标地址 */
-    @Column(name = "HEAD_IMG")
+    @Column(name = "HEAD_IMG" , length = 150)
     private String  headImg ;
     /** 友链的地址 */
-    @Column(name = "LINK_ADDRESS")
+    @Column(name = "LINK_ADDRESS" , length = 300)
     private String linkAddress ;
     /** 联系邮箱 */
-    @Column(name = "LINK_EMAIL")
+    @Column(name = "LINK_EMAIL" , length = 50)
     private String linkEmail ;
     /** 友链点击数 */
     @Column(name = "LINK_CLICK")
@@ -48,13 +48,13 @@ public class SLink implements Serializable,Cloneable{
     @Column(name = "LINK_SHOW")
     private Integer linkShow ;
     /** 创建人 */
-    @Column(name = "created_user")
+    @Column(name = "created_user" , length = 50)
     private String createdUser ;
     /** 创建时间 */
     @Column(name = "created_time")
     private Date createdTime ;
     /** 更新人 */
-    @Column(name = "updated_user")
+    @Column(name = "updated_user" , length = 50)
     private String updatedUser ;
     /** 更新时间 */
     @Column(name = "updated_time")

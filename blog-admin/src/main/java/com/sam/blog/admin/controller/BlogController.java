@@ -29,7 +29,7 @@ public class BlogController {
     @GetMapping(value = "/role")
     @ApiOperation(value = "获取登录时间接口", notes = "获取登录时间接口")
     public ResponseResult getUserDemo(){
-        return new ResponseResult(ResultCode.SUCCESS,sArticleService.getFindOne());
+        return new ResponseResult(ResultCode.SUCCESS,sArticleService.getUserRoleFindOne());
     }
 
     @ApiOperation(value = "插入文章")

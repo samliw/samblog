@@ -11,10 +11,21 @@ import com.sam.blog.component.mapper.SArticleMapper;
 import com.sam.blog.component.mapper.SUserRoleMapper;
 import com.sam.blog.component.service.SArticleService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class SArticleServiceImpl implements SArticleService {
@@ -29,8 +40,23 @@ public class SArticleServiceImpl implements SArticleService {
     }
 
     @Override
-    public SUserRole getUserRoleFindOne() {
-        return sUserRoleMapper.getOne(1);
+    public Page<SArticle> getUserRoleFindOne() {
+        String aname = "erw";
+        String key = "";
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdTime");
+        Pageable pageable = PageRequest.of(0,10,sort);
+        Specification<SArticle> specification = new Specification<SArticle>() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery query, CriteriaBuilder cb) {
+                List<Predicate> listp = new ArrayList<>();
+                if(StringUtils.isNotEmpty(aname)){
+                    listp.add(cb.like(root.get("articleName").as(String.class),aname));
+                }
+                Predicate[] predicates = new Predicate[listp.size()];
+                return query.where(listp.toArray(predicates)).getRestriction();
+            }
+        };
+        return sArticleMapper.findAll(specification,pageable);
     }
 
     @Transactional
@@ -63,4 +89,6 @@ public class SArticleServiceImpl implements SArticleService {
         SystemContextUtils.copyBean(sArticle,  sArticleDto);
         return sArticleDto;
     }
+
+
 }

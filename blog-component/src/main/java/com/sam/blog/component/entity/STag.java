@@ -15,12 +15,12 @@ import java.util.List;
 @Table(name="s_tag")
 public class STag implements Serializable,Cloneable{
     /** 标签ID */
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @Column(name = "TAG_ID")
     private Integer tagId ;
     /** 标签名称 */
-    @Column(name = "TAG_NAME")
+    @Column(name = "TAG_NAME" , length = 150)
     private String tagName ;
     /** 标签分类-前端显示不用;1 正常 2 推荐 3 一般推荐 4 非常推荐 */
     @Column(name = "TAG_TYPE")
@@ -29,19 +29,16 @@ public class STag implements Serializable,Cloneable{
     @Column(name = "DELETE_TAG")
     private Integer deleteTag ;
     /** 创建人 */
-    @Column(name = "created_user")
+    @Column(name = "created_user" , length = 50)
     private String createdUser ;
     /** 创建时间 */
     @Column(name = "created_time")
     private Date createdTime ;
     /** 更新人 */
-    @Column(name = "updated_user")
+    @Column(name = "updated_user" , length = 50)
     private String updatedUser ;
     /** 更新时间 */
     @Column(name = "updated_time")
     private Date updatedTime ;
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TAG_ID", updatable = false,insertable = false)
-    private List<SArticleTag> sArticleTag  = new ArrayList<>();;
 
 }

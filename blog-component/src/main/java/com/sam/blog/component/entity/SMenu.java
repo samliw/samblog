@@ -15,12 +15,12 @@ import java.util.List;
 @Table(name="s_menu")
 public class SMenu implements Serializable,Cloneable{
     /** 菜单ID */
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @Column(name = "MENU_ID")
     private Integer menuId ;
     /** 菜单名称 */
-    @Column(name = "MENU_NAME")
+    @Column(name = "MENU_NAME" , length = 150)
     private String menuName ;
     /** 父类菜单ID */
     @Column(name = "PARENT_MENU_ID")
@@ -29,7 +29,7 @@ public class SMenu implements Serializable,Cloneable{
     @Column(name = "ORDER_NUMBER")
     private Integer orderNumber ;
     /** 页面路径(路由地址) */
-    @Column(name = "MENU_URL")
+    @Column(name = "MENU_URL" , length = 150)
     private String menuUrl ;
     /** 类型;菜单类型（0目录 1菜单 2按钮） */
     @Column(name = "MENU_TYPE")
@@ -38,25 +38,23 @@ public class SMenu implements Serializable,Cloneable{
     @Column(name = "MENU_VISIBLE")
     private Integer MENU_VISIBLE ;
     /** 菜单图标 */
-    @Column(name = "MENU_ICON")
+    @Column(name = "MENU_ICON" , length = 150)
     private String menuIcon ;
     /** 备注 */
-    @Column(name = "REMARK")
+    @Column(name = "REMARK" , length = 300)
     private String remark ;
     /** 创建人 */
-    @Column(name = "created_user")
+    @Column(name = "created_user" , length = 50)
     private String createdUser ;
     /** 创建时间 */
     @Column(name = "created_time")
     private Date createdTime ;
     /** 更新人 */
-    @Column(name = "updated_user")
+    @Column(name = "updated_user" , length = 50)
     private String updatedUser ;
     /** 更新时间 */
     @Column(name = "updated_time")
     private Date updatedTime ;
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MENU_ID",referencedColumnName = "MENU_ID",updatable = false,insertable = false)
-    private List<SRoleMenu> roleMenuList = new ArrayList<>();
+
 
 }
