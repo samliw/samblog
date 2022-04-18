@@ -78,6 +78,9 @@ public class SArticleServiceImpl implements SArticleService {
             throw new BusinessException(ResultCode.INCOMPLETE_PARAM);
         }
         SArticle sArticle = sArticleMapper.getOne(sArticleDto.getArticleId());
+        if(sArticle == null){
+            throw new BusinessException(ResultCode.INCOMPLETE_PARAM);
+        }
         SystemContextUtils.copyBean(sArticleDto,  sArticle);
         sArticleMapper.save(sArticle);
     }

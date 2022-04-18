@@ -1,5 +1,8 @@
 package com.sam.blog.component.service.impl;
 
+import com.sam.blog.common.exception.BusinessException;
+import com.sam.blog.common.exceptionenum.ResultCode;
+import com.sam.blog.common.util.SystemContextUtils;
 import com.sam.blog.component.entity.SArticle;
 import com.sam.blog.component.entity.SLink;
 import com.sam.blog.component.mapper.SLinkMapper;
@@ -33,7 +36,12 @@ public class SlinkServiceImpl implements SlinkService {
 
     @Override
     public SLink update(SLink sLink) {
-        return linkMapper.save(sLink);
+        SLink link = linkMapper.getOne(sLink.getLinkId());
+        if (link == null){
+            throw new BusinessException(ResultCode.INCOMPLETE_PARAM);
+        }
+        SystemContextUtils.copyBean(sLink,  link);
+        return linkMapper.save(link);
     }
 
     @Override

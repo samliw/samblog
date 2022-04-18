@@ -26,4 +26,84 @@ public class LinkVo {
     private Integer linkDeal ;
     @ApiModelProperty(value = "友链是否显示;友链是否显示，1表示显示，0表示不显示")
     private Integer linkShow ;
+
+    public Integer getLinkId() {
+        return linkId;
+    }
+
+    public void setLinkId(Integer linkId) {
+        this.linkId = linkId;
+    }
+
+    public String getLinkName() {
+        return linkName;
+    }
+
+    public void setLinkName(String linkName) {
+        this.linkName = linkName;
+    }
+
+    public String getLinkDescription() {
+        return linkDescription;
+    }
+
+    public void setLinkDescription(String linkDescription) {
+        this.linkDescription = linkDescription;
+    }
+
+    public String getHeadImg() {
+        return headImg;
+    }
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
+    }
+
+    public String getLinkAddress() {
+        return linkAddress;
+    }
+
+    public void setLinkAddress(String linkAddress) {
+        this.linkAddress = linkAddress;
+    }
+
+    public String getLinkEmail() {
+        return linkEmail;
+    }
+
+    public void setLinkEmail(String linkEmail) {
+        this.linkEmail = linkEmail;
+    }
+
+    public Integer getLinkWeight() {
+        return linkWeight;
+    }
+
+    public void setLinkWeight(Integer linkWeight) {
+        this.linkWeight = linkWeight;
+    }
+
+    public Integer getLinkVisible() {
+        return linkVisible;
+    }
+
+    public void setLinkVisible(Integer linkVisible) {
+        this.linkVisible = linkVisible;
+    }
+
+    public Integer getLinkDeal() {
+        return linkDeal;
+    }
+
+    public void setLinkDeal(Integer linkDeal) {
+        this.linkDeal = linkDeal;
+    }
+
+    public Integer getLinkShow() {
+        return linkShow;
+    }
+
+    public void setLinkShow(Integer linkShow) {
+        this.linkShow = linkShow;
+    }
 }

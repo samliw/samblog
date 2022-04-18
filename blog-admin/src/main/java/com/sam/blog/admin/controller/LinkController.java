@@ -39,6 +39,7 @@ public class LinkController {
         }
         sLink.setCreatedUser(currentUserName);
         sLink.setCreatedTime(new Date());
+        sLink.setLinkClick(0);
         SLink save = slinkService.save(sLink);
         return new ResponseResult(ResultCode.SUCCESS,save);
     }
