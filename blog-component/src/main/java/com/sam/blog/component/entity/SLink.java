@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
-@Data
 @Entity
 @Table(name="s_link")
 public class SLink implements Serializable,Cloneable{
@@ -39,8 +38,8 @@ public class SLink implements Serializable,Cloneable{
     @Column(name = "LINK_WEIGHT")
     private Integer linkWeight ;
     /** 友链是否能访问;友链是否能访问，1表示能，0表示不能 */
-    @Column(name = "LINK_VISIABLE")
-    private Integer linkVisiable ;
+    @Column(name = "LINK_VISIBLE")
+    private Integer linkVisible ;
     /** 友链是否已经处理;友链是否已经处理，1表示已经处理，0表示没有处理 */
     @Column(name = "LINK_DEAL")
     private Integer linkDeal ;
@@ -60,5 +59,123 @@ public class SLink implements Serializable,Cloneable{
     @Column(name = "updated_time")
     private Date updatedTime ;
 
+    public Integer getLinkId() {
+        return linkId;
+    }
 
+    public void setLinkId(Integer linkId) {
+        this.linkId = linkId;
+    }
+
+    public String getLinkName() {
+        return linkName;
+    }
+
+    public void setLinkName(String linkName) {
+        this.linkName = linkName;
+    }
+
+    public String getLinkDescription() {
+        return linkDescription;
+    }
+
+    public void setLinkDescription(String linkDescription) {
+        this.linkDescription = linkDescription;
+    }
+
+    public String getHeadImg() {
+        return headImg;
+    }
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
+    }
+
+    public String getLinkAddress() {
+        return linkAddress;
+    }
+
+    public void setLinkAddress(String linkAddress) {
+        this.linkAddress = linkAddress;
+    }
+
+    public String getLinkEmail() {
+        return linkEmail;
+    }
+
+    public void setLinkEmail(String linkEmail) {
+        this.linkEmail = linkEmail;
+    }
+
+    public Integer getLinkClick() {
+        return linkClick;
+    }
+
+    public void setLinkClick(Integer linkClick) {
+        this.linkClick = linkClick;
+    }
+
+    public Integer getLinkWeight() {
+        return linkWeight;
+    }
+
+    public void setLinkWeight(Integer linkWeight) {
+        this.linkWeight = linkWeight;
+    }
+
+    public Integer getLinkVisible() {
+        return linkVisible;
+    }
+
+    public void setLinkVisible(Integer linkVisible) {
+        this.linkVisible = linkVisible;
+    }
+
+    public Integer getLinkDeal() {
+        return linkDeal;
+    }
+
+    public void setLinkDeal(Integer linkDeal) {
+        this.linkDeal = linkDeal;
+    }
+
+    public Integer getLinkShow() {
+        return linkShow;
+    }
+
+    public void setLinkShow(Integer linkShow) {
+        this.linkShow = linkShow;
+    }
+
+    public String getCreatedUser() {
+        return createdUser;
+    }
+
+    public void setCreatedUser(String createdUser) {
+        this.createdUser = createdUser;
+    }
+
+    public Date getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public String getUpdatedUser() {
+        return updatedUser;
+    }
+
+    public void setUpdatedUser(String updatedUser) {
+        this.updatedUser = updatedUser;
+    }
+
+    public Date getUpdatedTime() {
+        return updatedTime;
+    }
+
+    public void setUpdatedTime(Date updatedTime) {
+        this.updatedTime = updatedTime;
+    }
 }

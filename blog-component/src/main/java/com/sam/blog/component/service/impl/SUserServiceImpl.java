@@ -1,11 +1,14 @@
 package com.sam.blog.component.service.impl;
 
+import com.sam.blog.component.entity.SLoginLog;
 import com.sam.blog.component.entity.SUser;
+import com.sam.blog.component.mapper.SLoginLogMapper;
 import com.sam.blog.component.mapper.SUserMapper;
 import com.sam.blog.component.security.entity.UserServiceDetail;
 import com.sam.blog.component.service.SUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -14,6 +17,8 @@ public class SUserServiceImpl implements SUserService {
 
     @Resource
     private SUserMapper sUserMapper;
+    @Resource
+    private SLoginLogMapper sLoginLogMapper;
 
     @Override
     public UserServiceDetail getUserByUserName(String userName) {
@@ -35,4 +40,12 @@ public class SUserServiceImpl implements SUserService {
         userServiceDetail.setStatus(status);
         return userServiceDetail;
     }
+
+    @Transactional
+    @Override
+    public void saveUserLogin(SLoginLog sLoginLog) {
+        sLoginLogMapper.save(sLoginLog);
+    }
+
+
 }

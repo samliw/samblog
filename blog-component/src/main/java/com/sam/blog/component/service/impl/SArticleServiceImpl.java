@@ -10,6 +10,7 @@ import com.sam.blog.component.entity.SUserRole;
 import com.sam.blog.component.mapper.SArticleMapper;
 import com.sam.blog.component.mapper.SUserRoleMapper;
 import com.sam.blog.component.service.SArticleService;
+import com.sam.blog.component.vo.PageCommonVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -88,6 +89,23 @@ public class SArticleServiceImpl implements SArticleService {
         System.out.println(sArticle.toString());
         SystemContextUtils.copyBean(sArticle,  sArticleDto);
         return sArticleDto;
+    }
+
+    @Override
+    public Page<SArticle> getPageArticle(PageCommonVo vo) {
+        Pageable pageable = PageRequest.of(vo.getPageNumber(),vo.getPageSize(),Sort.by(Sort.Direction.DESC, "createdTime"));
+        Specification<SArticle> specification = new Specification<SArticle>() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery query, CriteriaBuilder cb) {
+                List<Predicate> listp = new ArrayList<>();
+                if(StringUtils.isNotEmpty(vo.getSearchName())){
+                    listp.add(cb.like(root.get("articleName").as(String.class),"%"+vo.getSearchName()+"%"));
+                }
+                Predicate[] predicates = new Predicate[listp.size()];
+                return query.where(listp.toArray(predicates)).getRestriction();
+            }
+        };
+        return sArticleMapper.findAll(specification,pageable);
     }
 
 

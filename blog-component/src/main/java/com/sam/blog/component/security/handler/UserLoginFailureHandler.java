@@ -1,7 +1,14 @@
 package com.sam.blog.component.security.handler;
 
+import com.alibaba.fastjson.JSONObject;
+import com.sam.blog.common.constants.SystemConstants;
 import com.sam.blog.common.exception.ResponseResult;
 import com.sam.blog.common.exceptionenum.ResultCode;
+import com.sam.blog.common.util.GetIP;
+import com.sam.blog.common.util.RequestBodyUtil;
+import com.sam.blog.component.entity.SLoginLog;
+import com.sam.blog.component.security.entity.UserServiceDetail;
+import com.sam.blog.component.service.SUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -12,10 +19,12 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * 登录失败
@@ -23,6 +32,8 @@ import java.io.IOException;
 @Component
 public class UserLoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
     public static final Logger LOGGER = LoggerFactory.getLogger(UserLoginFailureHandler.class);
+    @Resource
+    private SUserService sUserService;
     /**
      * 登录失败处理结果
      * UsernameNotFoundException（用户不存在）
@@ -39,7 +50,6 @@ public class UserLoginFailureHandler extends SimpleUrlAuthenticationFailureHandl
      */
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException exception) throws IOException, ServletException {
-
         if(exception instanceof UsernameNotFoundException){
             LOGGER.error("用户名不正确",exception.getMessage());
             ResponseResult.responseJson(httpServletResponse,new ResponseResult(ResultCode.NOT_USER_NAME_EXIST));

@@ -29,7 +29,6 @@ public class AuthenticationEntryPointHandler implements AuthenticationEntryPoint
      */
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        e.printStackTrace();
         LOGGER.error("用户未登录处理类 处理结果：" + e.getMessage());
         ResponseResult.responseJson(httpServletResponse,new ResponseResult(ResultCode.NOT_LOGIN));
     }

@@ -3,6 +3,7 @@ package com.sam.blog.component.service;
 import com.sam.blog.component.dto.SArticleDto;
 import com.sam.blog.component.entity.SArticle;
 import com.sam.blog.component.entity.SUserRole;
+import com.sam.blog.component.vo.PageCommonVo;
 import org.springframework.data.domain.Page;
 
 public interface SArticleService {
@@ -15,4 +16,6 @@ public interface SArticleService {
     void updateArticle(SArticleDto sArticleDto);
 
     SArticleDto getArticleById(Integer articleId);
+
+    Page<SArticle> getPageArticle(PageCommonVo vo);
 }
