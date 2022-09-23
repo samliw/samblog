@@ -66,6 +66,7 @@ public class SArticleServiceImpl implements SArticleService {
         if(StringUtils.isEmpty(sArticleDto.getArticleName())){
             throw new BusinessException(ResultCode.INCOMPLETE_PARAM);
         }
+        System.out.println("merge");
         SArticle sArticle = new SArticle();
         SystemContextUtils.copyBean(sArticleDto,  sArticle);
         sArticleMapper.save(sArticle);
